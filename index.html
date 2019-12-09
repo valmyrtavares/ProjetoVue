@@ -14,12 +14,13 @@
 <body>
   <div id="app">
    
-  <section class="modal" v-if="produto">
+  <section class="modal" v-if="produto" @click="abrirModal">
     <div class="modal_container">
       <div class="modal_img">
         <img :src="produto.img" :alt="produto.nome"></img>
       </div>
       <div class="modal_dados">
+        <button @click ="produto = false" class="modal_fechar">X</button>
         <span class="modal_preco">{{produto.preco}}</span>
         <h2 class="modal_produto">{{produto.nome}}</h2>
         <p>{{produto.descricao}}</p>
