@@ -12,7 +12,30 @@
 </head>
 
 <body>
-  <div id="app">
+  
+<div id="app">
+  <button @click="removerItem ">Remover</button>
+  <header class="header">
+    <img class="logo" src="./assets/techno.svg" alt="techno">
+    <div class="carrinho_menu">{{carrinhoTotal}} | </div>
+    <ul>
+      <li v-for="item in carrinho">
+        <p> {{item.nome}} </p>>
+        <button S>Remover</button>
+      </li>
+    </ul>
+  </header>
+
+  <section class="produtos">
+    <div v-for="item in produtos" @click="fetchProduto(item.id)" :key="item.id" class="produto">
+      <img :src="item.img" alt="item.nome" class="produto_img" />
+      <div class="produto_info">
+        <span class="produto_preco">{{item.preco | numeroPreco}} </span>
+        <h2 class="protudo_titulo">{{item.nome | maiuscula}} </h2>
+      </div> 
+    </div>
+  </section>
+  
    
   <section class="modal" v-if="produto" @click="abrirModal">
     <div class="modal_container">
@@ -24,7 +47,8 @@
         <span class="modal_preco">{{produto.preco}}</span>
         <h2 class="modal_produto">{{produto.nome}}</h2>
         <p>{{produto.descricao}}</p>
-        <button class="modal_btn">Adicionar Item</button>
+         <button v-if="produto.estoque>0" class="modal_btn" @click="adicionarItem">Adicionar Item</button>
+         <button v-else class="modal_btn esgotado" disabled>Produto Esgotado</button>
       </div>
       <div class="avaliacoes">
         <h2 class="avaliacoes_subtitulo">Avaliações</h2>
@@ -37,15 +61,7 @@
       </div>
     </div>
   </section>
-  <section class="produtos">
-    <div v-for="item in produtos" @click="fetchProduto(item.id)" :key="item.id" class="produto">
-      <img :src="item.img" alt="item.nome" class="produto_img" />
-      <div class="produto_info">
-        <span class="produto_preco">{{item.preco | numeroPreco}} </span>
-        <h2 class="protudo_titulo">{{item.nome | maiuscula}} </h2>
-      </div> 
-    </div>
-  </section>
+ 
 </div>
   <script src="./app.js"></script>
 </body>

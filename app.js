@@ -4,6 +4,8 @@ const vm = new Vue({
     pais: "Brazil",
     produtos: [],
     produto: false,
+    carrinho: [],
+    carrinhoTotal: 0,
   },
   filters: {
     numeroPreco(valor) {
@@ -38,6 +40,15 @@ const vm = new Vue({
     fecharModal({ target, currentTarget }) {
       if (target === currentTarget)
         this.produto = false;
+    },
+    adicionarItem() {
+
+      this.produto.estoque--;
+      const { id, nome, preco } = this.produto
+      this.carrinho.push(id, nome, preco)
+    },
+    removerItem() {
+      this.carrinho.splice(0, 1)
     }
   },
 
