@@ -14,20 +14,21 @@
 <body>
   
 <div id="app">
-  <button @click="removerItem ">Remover</button>
   <header class="header">
     <img class="logo" src="./assets/techno.svg" alt="techno">
-    <div class="carrinho_menu">{{carrinhoTotal}} | </div>
+    <div class="carrinho_menu"> {{carrinhoTotal | numeroPreco}}| {{carrinho.length}} </div>
     <ul>
-      <li v-for="item in carrinho">
-        <p> {{item.nome}} </p>>
-        <button S>Remover</button>
+      <li v-for="item, index in carrinho">
+        <p>{{item.nome}} </p>
+        <button @click="removerItem">X</button>
       </li>
     </ul>
+  
   </header>
+  
 
   <section class="produtos">
-    <div v-for="item in produtos" @click="fetchProduto(item.id)" :key="item.id" class="produto">
+    <div v-for="item in produtos" @click="abrirModal(item.id)" :key="item.id" class="produto">
       <img :src="item.img" alt="item.nome" class="produto_img" />
       <div class="produto_info">
         <span class="produto_preco">{{item.preco | numeroPreco}} </span>
@@ -35,9 +36,8 @@
       </div> 
     </div>
   </section>
-  
-   
-  <section class="modal" v-if="produto" @click="abrirModal">
+     
+  <section class="modal" v-if="produto" @click="fecharModal">
     <div class="modal_container">
       <div class="modal_img">
         <img :src="produto.img" :alt="produto.nome"></img>
@@ -47,7 +47,8 @@
         <span class="modal_preco">{{produto.preco}}</span>
         <h2 class="modal_produto">{{produto.nome}}</h2>
         <p>{{produto.descricao}}</p>
-         <button v-if="produto.estoque>0" class="modal_btn" @click="adicionarItem">Adicionar Item</button>
+        <p>{{produto.estoque}}</p>
+        <button v-if="produto.estoque > 0" class="modal_btn" @click="adicionarItem">Adicionar Item</button>
          <button v-else class="modal_btn esgotado" disabled>Produto Esgotado</button>
       </div>
       <div class="avaliacoes">
@@ -55,7 +56,7 @@
         <ul>
           <li v-for="avaliacao in produto.avaliacoes" class="avaliacao">
             <p class="avaliacao_descricao">{{avaliacao.descricao}}</p>
-            <p class="avaliacao_usuario">{{avaliacao.nome}}  {{avaliacao.estrelas}} Estrelas</p>
+            <p class="avaliacao_usuario">{{avaliacao.nome}} {{avaliacao.estrelas}} Estrelas</p>
           </li>
         </ul>
       </div>
