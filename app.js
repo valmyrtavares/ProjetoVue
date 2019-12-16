@@ -84,15 +84,17 @@ const vm = new Vue({
         this.carrinho = JSON.parse(window.localStorage.carrinho)
       }
     },
+
     compararEstoque() {
-      debugger
-      this.carrinho.filter(item => {
+      const items = this.carrinho.filter(item => {
+        console.log(item.id);
         if (item.id === this.produto.id) {
-          return true
+          return true;
         }
       })
-      this.produto.estoque = this.produto.estoque - item.legth;
-      console.log(item)
+      this.produto.estoque = this.produto.estoque - items.length
+
+
     },
 
     alerta(mensagem) {
